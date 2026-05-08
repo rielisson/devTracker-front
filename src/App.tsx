@@ -1,10 +1,19 @@
-import './App.css'
-import { Header } from './componentes/Header'
+import './App.css';
+import { useState } from 'react';
+import { Login } from './componentes/Login';
+import { Dashboard } from './componentes/Dashboard';
+
 
 function App() {
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-      <Header />
+    <>
+      {!isLoggedIn ? (
+        <Login onLogin={() => setIsLoggedIn(true)} />
+      ) : (
+        <Dashboard />
+      )}
+    </>
   )
 }
 
