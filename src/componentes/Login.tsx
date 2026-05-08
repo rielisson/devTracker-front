@@ -4,7 +4,7 @@ import { loginRequest } from "../services/auth";
 import { createContaRequest } from "../services/auth";
 
 interface LoginProps {
-    onLogin: () => void;
+    onLogin: (name: string) => void;
 }
 
 
@@ -21,11 +21,11 @@ export function Login({ onLogin }: LoginProps) {
         e.preventDefault();
         try {
             if (isLogin) {
-                await loginRequest(email, password);
-                onLogin();
+                const userData = await loginRequest(email, password);
+                onLogin(userData.user.name);
             } else {
                 await createContaRequest(name, email, password);
-                onLogin();
+                onLogin("ola");
             }
 
         } catch (error) {

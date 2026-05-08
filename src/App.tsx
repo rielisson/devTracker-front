@@ -5,13 +5,17 @@ import { Dashboard } from './componentes/Dashboard';
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [userName, setNameUser] = useState(""); 
   return (
     <>
       {!isLoggedIn ? (
-        <Login onLogin={() => setIsLoggedIn(true)} />
+        <Login onLogin={(nameUserData: string) => {
+          setIsLoggedIn(true)
+          setNameUser(nameUserData);
+        }} />
       ) : (
-        <Dashboard />
+        <Dashboard name={userName}/>
       )}
     </>
   )
