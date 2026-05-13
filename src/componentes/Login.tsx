@@ -4,7 +4,7 @@ import { loginRequest } from "../services/auth";
 import { createContaRequest } from "../services/auth";
 
 interface LoginProps {
-    onLogin: (name: string) => void;
+    onLogin: (name: string, email: string) => void;
 }
 
 
@@ -22,10 +22,11 @@ export function Login({ onLogin }: LoginProps) {
         try {
             if (isLogin) {
                 const userData = await loginRequest(email, password);
-                onLogin(userData.user.name);
+                onLogin(userData.user.name, userData.user.email);
             } else {
-                await createContaRequest(name, email, password);
-                onLogin("ola");
+                const userData = await createContaRequest(name, email, password);
+                console.log(userData.data.user);
+                onLogin(userData.data.user.name, userData.data.user.email);
             }
 
         } catch (error) {
@@ -47,7 +48,7 @@ export function Login({ onLogin }: LoginProps) {
                     <div className=" inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl mb-4">
                         <Code2 className="w-8 h-8 text-white" />
                     </div>
-                    <h1 className="text-4xl font-bold text-gray-900 mb-2">DevTracker</h1>
+                    <span className="text-4xl font-bold text-gray-900 mb-2">DevTracker</span>
                     <p className="text-gray-600">Acompanhe sua evolução como desenvolverdor</p>
                 </div>
 
